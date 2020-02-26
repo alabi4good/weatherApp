@@ -1,6 +1,6 @@
 # ANGULAR WEATHER APP
 
-This is a weather application designed to get the current weather in your location and also that of all the cities across the globe. I made use of open weather API,Google Map API.
+This is a weather application designed to get the current weather in your location and also that of all the cities across the globe. I made use of open weather API and Google Map API.
 
 **TOOLS USED**
 
