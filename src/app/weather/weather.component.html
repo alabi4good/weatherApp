@@ -1,0 +1,74 @@
+<div *ngIf="weather;else waiting">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="input-group mt-5">
+                <input type="text" class="form-control" #userInput placeholder="Enter city name...">
+                <span class="input-group-btn">
+                    <button class="btn btn-success" type="button" (click)="getCity(userInput)">Search</button>
+                </span>
+            </div><!-- /input-group -->
+        </div><!-- /.col-lg-6 -->
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="col-sm-12 text-center">
+                <h5>Current weather and forecasts in your city...</h5>
+                <h2>Weather in {{ weather.name }}, {{ weather.sys.country }}</h2>
+            </div>
+            <div class="col-sm-12" id="info">
+                <img src="assets/{{weather.weather[0].icon}}.png" alt="">
+                <span class="temp">
+                   
+                    {{weather.main.temp | number: '1.0-0'}} &#176;F
+                    <p class="text-uppercase lead">
+                        {{weather.weather[0].description}}
+                    </p>
+                </span>
+            </div>
+            <table class="table table-light table-striped table-bordered table-sm">
+                <tbody>
+                    <tr>
+                        <td>Humidity</td><td>{{weather.main.humidity}}%</td>
+                    </tr>
+                    <tr>
+                        <td>Pressure</td><td>{{ weather.main.pressure}} hpa</td>
+                    </tr>
+                    <tr>
+                        <td>Sunrise</td><td>{{ weather.sys.sunrise * 1000 | date: 'H:mm'}}</td>
+                    </tr>
+                    <tr>
+                        <td>Sunset</td><td>{{ weather.sys.sunset * 1000 | date: 'H:mm'}}</td>
+                    </tr>
+                    <tr>
+                        <td>Geo coords</td><td>[{{ weather.coord.lat}}, {{ weather.coord.lon }}]</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- Using the angular google map(@agm/core) -->
+            <agm-map [latitude]='lat' [longitude]='lon' (mapClick)="getMapCity($event)">
+                <agm-marker [latitude]='lat' [longitude]='lon'></agm-marker>
+            </agm-map>
+        </div>
+    </div>
+</div>
+<ng-template #waiting>
+  <img src="assets/loading.gif" alt="loading" id="loading" *ngIf="locationDenied">
+  <div class="row" *ngIf="locationDeniedEnableCity">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="input-group mt-5">
+            <input type="text" class="form-control" #userInput placeholder="Enter city name...">
+            <span class="input-group-btn">
+                <button class="btn btn-success" type="button" (click)="getCity(userInput)">Search</button>
+            </span>
+        </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+</div>
+
+</ng-template>
+<div class="row">
+    <div class="col-md-12">
+           
+    <p class="alabi">Designed by Adetunji Alabi</p>
+    </div>
+</div>
